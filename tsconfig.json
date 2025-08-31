@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+  "module": "Node16", // Node-style ESM for server + bundlers
+    "lib": ["ES2022", "DOM"], // add DOM for browser globals
+    "rootDir": "./",
+    "outDir": "dist",
+    "strict": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
+    "forceConsistentCasingInFileNames": true,
+  "moduleResolution": "node16", // use Node-style resolution for server-side modules
+  "skipLibCheck": true,
+  "jsx": "react-jsx",
+    "resolveJsonModule": true
+  },
+  "include": ["src/**/*.ts", "src/**/*.tsx", "playwright/**/*.ts", "agents/**/*.ts"], // include server, playwright, and agents
+  "exclude": ["node_modules", "dist"]
+}

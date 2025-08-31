@@ -24571,56 +24571,9 @@
   var import_react6 = __toESM(require_react());
   function useChat() {
     const [messages, setMessages] = (0, import_react6.useState)([]);
-    async function send(input) {
-      setMessages((m) => [
-        ...m,
-        { role: "user", text: input },
-        { role: "assistant", text: "" }
-      ]);
-      const storage = typeof globalThis !== "undefined" && globalThis.localStorage ? globalThis.localStorage : null;
-      let sessionId = storage ? storage.getItem("sessionId") : null;
-      if (!sessionId) {
-        sessionId = Math.random().toString(36).slice(2);
-        if (storage)
-          storage.setItem("sessionId", sessionId);
-      }
-      const resp = await fetch("/api/stream", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ input, sessionId })
-      });
-      const reader = resp.body.getReader();
-      const decoder = new TextDecoder();
-      let partial = "";
-      while (true) {
-        const { done, value } = await reader.read();
-        if (done)
-          break;
-        partial += decoder.decode(value, { stream: true });
-        const parts = partial.split("\n\n");
-        for (let i = 0; i < parts.length - 1; i++) {
-          const chunk = parts[i];
-          if (chunk.startsWith("data: ")) {
-            const data = chunk.slice(6);
-            let text = data;
-            try {
-              text = JSON.parse(data);
-            } catch {
-            }
-            setMessages((prev) => {
-              const copy = [...prev];
-              for (let j = copy.length - 1; j >= 0; j--) {
-                if (copy[j].role === "assistant") {
-                  copy[j] = { ...copy[j], text: copy[j].text + text };
-                  break;
-                }
-              }
-              return copy;
-            });
-          }
-        }
-        partial = parts[parts.length - 1];
-      }
+    function send(text) {
+      const msg = { id: Date.now(), role: "user", text };
+      setMessages((s) => [...s, msg]);
     }
     return { messages, send };
   }
@@ -24698,3 +24651,4 @@ react/cjs/react-jsx-runtime.development.js:
    * LICENSE file in the root directory of this source tree.
    *)
 */
+//# sourceMappingURL=app.js.map

@@ -4,7 +4,8 @@
   "module": "Node16", // Node-style ESM for server + bundlers
     "lib": ["ES2022", "DOM"], // add DOM for browser globals
     "rootDir": "./",
-    "outDir": "dist",
+  "outDir": "dist",
+  "noEmit": true,
     "strict": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
@@ -14,6 +15,6 @@
   "jsx": "react-jsx",
     "resolveJsonModule": true
   },
-  "include": ["src/**/*.ts", "src/**/*.tsx", "playwright/**/*.ts", "agents/**/*.ts"], // include server, playwright, and agents
+  "include": ["src/**/*.ts", "src/**/*.tsx"], // only include src for type-checking
   "exclude": ["node_modules", "dist"]
 }

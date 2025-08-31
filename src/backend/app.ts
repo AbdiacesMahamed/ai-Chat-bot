@@ -1,16 +1,20 @@
-import express from "express";
-import path from "path";
-import streamRouter from "./routes/stream";
-import playwrightRouter from "./routes/playwright";
+import express from 'express';
+import path from 'path';
+import dotenv from 'dotenv';
+import streamRouter from './routes/stream';
+import playwrightRouter from './routes/playwright';
+
+dotenv.config();
 
 const app = express();
 app.use(express.json());
 
 // Serve the built frontend from the project public folder
-app.use(express.static(path.resolve(process.cwd(), "public")));
+// Serve the built frontend from the project public folder
+app.use(express.static(path.resolve(process.cwd(), 'public')));
 
 // API routes
-app.use("/api/stream", streamRouter);
-app.use("/api/playwright", playwrightRouter);
+app.use('/api/stream', streamRouter);
+app.use('/api/playwright', playwrightRouter);
 
 export default app;

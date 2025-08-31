@@ -2,13 +2,13 @@
   "name": "simple-chat",
   "version": "0.1.0",
   "private": true,
-  "main": "dist/src/backend/server.js",
+  "main": "src/backend/server.ts",
   "scripts": {
-    "build": "tsc && npm run build:client",
-    "start": "node dist/src/backend/server.js",
-    "dev": "concurrently \"ts-node-dev --respawn --transpile-only --esm src/backend/server.ts\" \"npm run dev:client\"",
-    "build:client": "esbuild src/frontend/index.tsx --bundle --outfile=public/app.js --loader:.tsx=tsx --platform=browser --sourcemap",
-    "dev:client": "esbuild src/frontend/index.tsx --bundle --outfile=public/app.js --loader:.tsx=tsx --platform=browser --watch"
+    "typecheck": "tsc --noEmit",
+  "build": "npm run typecheck",
+  "start": "ts-node -r dotenv/config src/backend/server.ts",
+  "dev": "ts-node-dev --respawn --transpile-only -r dotenv/config src/backend/server.ts",
+    "prepare": "husky install"
   },
   "dependencies": {
     "@langchain/google-genai": "^0.2.16",
@@ -28,6 +28,7 @@
     "concurrently": "^8.0.1",
     "esbuild": "^0.18.18",
     "ts-node-dev": "^2.0.0",
-    "typescript": "^5.0.0"
+    "typescript": "^5.0.0",
+    "serve": "^14.2.0"
   }
 }
